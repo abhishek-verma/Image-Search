@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ImageSearch</string>
     <string name="image_search">Image\nSearch</string>
+    <string name="tap_here">Tap Here</string>
 </resources>

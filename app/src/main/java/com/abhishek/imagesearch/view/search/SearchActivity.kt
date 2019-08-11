@@ -1,8 +1,8 @@
-package com.abhishek.imagesearch
+package com.abhishek.imagesearch.view.search
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.abhishek.imagesearch.ui.search.SearchFragment
+import androidx.appcompat.app.AppCompatActivity
+import com.abhishek.imagesearch.R
 
 class SearchActivity : AppCompatActivity() {
 
