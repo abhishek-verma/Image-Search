@@ -1,15 +1,20 @@
 package com.abhishek.imagesearch.view.results
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagedList
 import com.abhishek.imagesearch.R
+import com.abhishek.imagesearch.api.Item
+import com.abhishek.imagesearch.ex.Injection
 import com.abhishek.imagesearch.viewmodel.results.SearchResultsViewModel
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.results_fragment.*
 
 class SearchResultsFragment : Fragment() {
 
@@ -22,9 +27,8 @@ class SearchResultsFragment : Fragment() {
     }
 
     private lateinit var viewModelSearch: SearchResultsViewModel
-    private lateinit var recyclerView: RecyclerView
     private val glide by lazy { Glide.with(this) }
-
+    private lateinit var query: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +37,40 @@ class SearchResultsFragment : Fragment() {
         return inflater.inflate(R.layout.results_fragment, container, false)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.getString(SearchResultsActivity.EXTRA_QUERY)?.let {
+            query = it
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModelSearch = ViewModelProviders.of(this).get(SearchResultsViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        initViewModel()
+        initAdapter()
+        viewModelSearch.showSearchResults(query)
+    }
+
+
+    private fun initAdapter() {
+        val adapter = SearchResultsAdapter(glide) {
+            viewModelSearch.retry()
+        }
+        recyclerView.adapter = adapter
+        viewModelSearch.items.observe(this, Observer<PagedList<Item>> {
+            adapter.submitList(it)
+        })
+        viewModelSearch.networkState.observe(this, Observer {
+            adapter.setNetworkState(it)
+        })
+    }
+
+    private fun initViewModel() {
+        viewModelSearch = ViewModelProviders.of(
+            this,
+            Injection.provideViewModelFactory()
+        ).get(SearchResultsViewModel::class.java)
     }
 
 }

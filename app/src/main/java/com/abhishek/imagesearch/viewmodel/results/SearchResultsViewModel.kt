@@ -23,12 +23,8 @@ class SearchResultsViewModel(
         itemResult.value?.refresh?.invoke()
     }
 
-    fun showSearchResults(searchQuery: String): Boolean {
-        if (this.searchQuery.value == searchQuery) {
-            return false
-        }
+    fun showSearchResults(searchQuery: String) {
         this.searchQuery.value = searchQuery
-        return true
     }
 
     fun retry() {

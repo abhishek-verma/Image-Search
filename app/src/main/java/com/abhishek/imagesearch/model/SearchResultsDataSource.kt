@@ -29,7 +29,7 @@ class SearchResultsDataSource(
                 postInitialState(NetworkState.LOADING)
             },
             onSuccess = { responseBody ->
-                val items = responseBody?.items ?: emptyList()
+                val items = responseBody?.items?.filter { it.pagemap?.cseImage?.get(0)?.src != null } ?: emptyList()
                 totalResults = responseBody?.searchInformation?.totalResults!!
                 retry = null
                 postInitialState(NetworkState.LOADED)
@@ -46,6 +46,11 @@ class SearchResultsDataSource(
         val currentStartIndex = params.key
         val nextPageStartIndex = currentStartIndex + PAGE_SIZE
 
+        if (currentStartIndex > totalResults) {
+            postAfterState(NetworkState.LOADED)
+        }
+
+
         searchService.searchAsync(
             query = searchQuery,
             startIndex = currentStartIndex,
@@ -53,7 +58,7 @@ class SearchResultsDataSource(
                 postAfterState(NetworkState.LOADING)
             },
             onSuccess = { responseBody ->
-                val items = responseBody?.items ?: emptyList()
+                val items = responseBody?.items?.filter { it.pagemap?.cseImage?.get(0)?.src != null } ?: emptyList()
                 retry = null
                 callback.onResult(items, nextPageStartIndex)
                 postAfterState(NetworkState.LOADED)
@@ -68,7 +73,6 @@ class SearchResultsDataSource(
         // ignored, since we only ever append to our initial load
     }
 
-    // TODO remove if unused
     fun retryAllFailed() {
         val prevRetry = retry
         retry = null

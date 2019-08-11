@@ -3,4 +3,5 @@
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#bbb</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="resultScreenTitleColor">#333</color>
 </resources>

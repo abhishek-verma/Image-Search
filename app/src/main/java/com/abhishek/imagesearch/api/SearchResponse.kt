@@ -13,14 +13,25 @@ data class SearchInformation(
 
 data class Item(
     @SerializedName("title") val title: String,
-    @SerializedName("pagemap") val pagemap: PageMap
+    @SerializedName("link") val link: String,
+    @SerializedName("snippet") val snippet: String,
+    @SerializedName("pagemap") val pagemap: PageMap?
 )
 
 data class PageMap(
-    @SerializedName("metatags") val metatags: List<MetaTag>,
-    @SerializedName("cse_image") val cseImage: List<String>
+    @SerializedName("cse_thumbnail") val cseThumbnail: List<CseThumbnail>?,
+    @SerializedName("metatags") val metatags: List<MetaTag>?,
+    @SerializedName("cse_image") val cseImage: List<CseImage>?
+)
+
+data class CseThumbnail(
+    @SerializedName("src") val src: String?
+)
+
+data class CseImage(
+    @SerializedName("src") val src: String?
 )
 
 data class MetaTag(
-    @SerializedName("og:title") val ogTitle: String
+    @SerializedName("og:title") val ogTitle: String?
 )

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ImageSearch</string>
     <string name="image_search">Image\nSearch</string>
-    <string name="tap_here">Tap Here</string>
+    <string name="tap_here">TAP HERE</string>
     <string name="retry">Retry</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

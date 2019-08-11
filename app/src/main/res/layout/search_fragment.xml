@@ -40,6 +40,8 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:textSize="42sp"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
                 android:textColorHint="#ddd"
                 android:fontFamily="@font/roboto_black"
                 android:hint="@string/tap_here"/>

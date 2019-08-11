@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abhishek.imagesearch.R
 import com.abhishek.imagesearch.api.Item
 import com.abhishek.imagesearch.model.NetworkState
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 
 class SearchResultsAdapter(
-    private val glide: Glide,
+    private val glide: RequestManager,
     private val retryCallback: () -> Unit
 ) : PagedListAdapter<Item, RecyclerView.ViewHolder>(ITEM_COMPARATOR) {
 
@@ -63,8 +63,16 @@ class SearchResultsAdapter(
 
     companion object {
         private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<Item>() {
-            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean =
-                oldItem.pagemap.cseImage[0] == newItem.pagemap.cseImage[0]
+            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+                if (oldItem.pagemap?.cseImage?.get(0)?.src != null
+                    && newItem.pagemap?.cseImage?.get(0)?.src != null
+                ) {
+                    return oldItem.pagemap.cseImage[0].src == newItem.pagemap.cseImage[0].src
+                }
+
+                return oldItem.title == newItem.title
+            }
+
 
             override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean =
                 oldItem == newItem
