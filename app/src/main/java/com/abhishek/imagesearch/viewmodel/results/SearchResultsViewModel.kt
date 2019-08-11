@@ -6,7 +6,7 @@ import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import com.abhishek.imagesearch.model.repo.SearchResultsRepository
 
-class ResultsViewModel(
+class SearchResultsViewModel(
     private val repository: SearchResultsRepository
 ) : ViewModel() {
 

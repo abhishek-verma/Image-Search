@@ -3,7 +3,6 @@ package com.abhishek.imagesearch.api
 import com.google.gson.annotations.SerializedName
 
 data class SearchResponse(
-    @SerializedName("title") val title: String,
     @SerializedName("items") val items: List<Item>,
     @SerializedName("searchInformation") val searchInformation: SearchInformation
 )
@@ -13,6 +12,7 @@ data class SearchInformation(
 )
 
 data class Item(
+    @SerializedName("title") val title: String,
     @SerializedName("pagemap") val pagemap: PageMap
 )
 
