@@ -1,5 +1,6 @@
 package com.abhishek.imagesearch.view.results
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.abhishek.imagesearch.R
 import com.abhishek.imagesearch.api.Item
+import com.abhishek.imagesearch.view.details.DetailActivity
 import com.bumptech.glide.RequestManager
 
 class SearchResultItemViewHolder(
@@ -30,6 +32,12 @@ class SearchResultItemViewHolder(
                 desc.visibility = VISIBLE
             else
                 desc.visibility = GONE
+        }
+
+        imageView.setOnClickListener {
+            val intent = Intent(imageView.context, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_ITEM, item)
+            imageView.context.startActivity(intent)
         }
     }
 

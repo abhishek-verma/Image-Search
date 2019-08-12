@@ -14,7 +14,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-                android:name=".view.details.DetailsActivity"
+                android:name=".view.details.DetailActivity"
                 android:label="@string/title_activity_details"
                 android:parentActivityName=".view.results.SearchResultsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
